@@ -1,0 +1,140 @@
+import sys
+
+expenses = []
+
+
+def add_expense():
+    while True:
+        description = input("Description: ").strip().capitalize()
+        if description:
+            break
+        print("Description cannot be empty. Please try again ")
+
+    while True:      
+        category = input("Category: ").strip().title()
+
+        if category:
+            break
+        print("Category cannot be empty. Please try again")
+
+    while True:
+        try:
+            amount = float(input("Amount: "))
+
+        except ValueError:
+            print("Invalid amount. Please enter a number.")
+            continue
+        break
+            
+    if amount <= 0:
+        print("Amount must be a positive number.")
+                
+
+    expense = {
+        "description": description,
+        "category": category,
+        "amount": amount
+    }
+
+    expenses.append(expense)
+    print("Expense added successfully!")
+
+
+def view_expenses():
+    if not expenses:
+        print("No expenses recorded yet.")
+        return
+
+    print('\n' + '=' * 66)
+    print('All Expenses'.center(66))
+    print('=' * 66)
+
+    print(f"{"S/n":^6} | {"Description":^20} | {"Category":^15} | {"Amount":^10}(₦)")
+
+    for index, expense in enumerate(expenses, 1):
+        print(f"{index:^6} | {expense['description']:<20} | {expense['category']:<15} |{expense['amount']:>10.2f}")
+
+    print('=' * 66)
+
+
+def view_summary():
+    if not expenses:
+        print("No expenses available to summarize.")
+        return
+
+    total = 0
+    category_totals = {}
+    # most_expensive = expenses[0]
+
+    for expense in expenses:
+        amount = expense["amount"]
+        category = expense["category"]
+
+        #Calculating the overall amount spent
+        total += amount
+
+        #Calculating total by category
+        if category in category_totals:
+            category_totals[category] += amount
+        else:
+            category_totals[category] = amount
+
+    #Finding the most expensive expense
+    # if amount > most_expensive["amount"]:
+    #     most_expensive = expense
+    most_expensive = max(
+        expenses,
+        key=lambda expense: expense["amount"]
+    )
+
+    print("\n===== Expense Summary =====")
+    print(f"Total spent: ₦ {total:.2f}")
+
+    print("\nSpending by category:")
+
+    for category, amount in category_totals.items():
+        print(f"{category}: ₦ {amount:.2f}")
+
+    print(
+        f"\nMost expensive expense: "
+        f"{most_expensive['description']} — "
+        f"₦ {most_expensive['amount']:.2f}"
+    )
+
+
+def main():
+    while True:
+        print("""
+===== Expense Tracker =====
+1. Add expense
+2. View expenses
+3. View summary
+4. Quit
+===========================
+""")
+        while True:
+            choice = input("Choose an option: ").strip()
+            if not choice:
+                print("Choice can't be empty")
+                continue
+            break
+
+        if choice == "1":
+            add_expense()
+
+        elif choice == "2":
+            view_expenses()
+
+        elif choice == "3":
+            view_summary()
+
+        elif choice == "4":
+            print("Thank you for using the Expense Tracker!")
+            sys.exit(0)
+
+        else:
+            print("Invalid choice. Please choose 1, 2, 3, or 4.")
+
+
+if __name__ == "__main__":
+    main()
