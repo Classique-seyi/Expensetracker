@@ -64,7 +64,6 @@ def view_summary():
 
     total = 0
     category_totals = {}
-    # most_expensive = expenses[0]
 
     for expense in expenses:
         amount = expense["amount"]
@@ -80,8 +79,7 @@ def view_summary():
             category_totals[category] = amount
 
     #Finding the most expensive expense
-    # if amount > most_expensive["amount"]:
-    #     most_expensive = expense
+    
     most_expensive = max(
         expenses,
         key=lambda expense: expense["amount"]
@@ -112,12 +110,12 @@ def main():
 4. Quit
 ===========================
 """)
-        while True:
-            choice = input("Choose an option: ").strip()
-            if not choice:
-                print("Choice can't be empty")
-                continue
-            break
+       
+        choice = input("Choose an option: ").strip()
+
+        if not choice:
+            print("Choice can't be empty")
+            continue
 
         if choice == "1":
             add_expense()
