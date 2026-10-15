@@ -95,6 +95,7 @@ def view_summary():
 
     print(
         f"\nMost expensive expense: "
+        f"{most_expensive['category']}: "
         f"{most_expensive['description']} — "
         f"₦ {most_expensive['amount']:.2f}"
     )
