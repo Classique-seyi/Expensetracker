@@ -69,17 +69,14 @@ def view_summary():
     for expense in expenses:
         amount = expense["amount"]
         category = expense["category"]
-
-        #Calculating the overall amount spent
+        
         total += amount
-
-        #Calculating total by category
+      
         if category in category_totals:
             category_totals[category] += amount
         else:
             category_totals[category] = amount
 
-    #Finding the most expensive expense
     
     max_expense = max(expense["amount"] for expense in expenses)
     top_expenses = [expense for expense in expenses if expense["amount"] == max_expense]
@@ -90,8 +87,10 @@ def view_summary():
     print("\nSpending by category:")
 
     for category, amount in category_totals.items():
-        print(f"{category}: ₦ {amount:.2f}")
+        print(f"{category}: ₦ {amount:.2f}\n")
 
+    
+    print("===== Most Expensive Expense =====")
     print(f"{"S/n":^6} | {"Category":^15} | {"Description":^20} | {"Amount":^10}(₦)")
 
     for index, most_expensive in enumerate(top_expenses, 1):
