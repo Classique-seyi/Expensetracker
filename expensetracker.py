@@ -20,14 +20,15 @@ def add_expense():
     while True:
         try:
             amount = float(input("Amount: "))
+            if amount <= 0:
+                print("Amount must be a positive number.")
+                continue
 
         except ValueError:
             print("Invalid amount. Please enter a number.")
             continue
         break
             
-    if amount <= 0:
-        print("Amount must be a positive number.")
                 
 
     expense = {
@@ -132,3 +133,9 @@ def main():
 
 
 main()
+
+
+
+#Category: food; Description: lunch; amt: 2000
+#: rent; : house rent; : 4500000
+#: fashion; : shoes; : 30000
